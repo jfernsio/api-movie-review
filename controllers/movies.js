@@ -6,36 +6,32 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
-const originalId = null
 
 const createMovie = async (req, res) => {
   try {
     const { username, movie } = req.body;
     const userToken = req.cookies.authcookie;
-    
-    const decodedToken = jwt.verify(userToken, process.env.jwtPass);
-    originalId = decodedToken;
+    const decode = jwt.verify(userToken,process.env.jwtPass);
+    const userId = decode.user._id
+    console.log(decode,userId)
+    const newMovie = new Movies({
+      ...movie,
+      createdBy: userId
+    });
 
-    console.log("user token decode", originalId.role);
-
-    // console.log(originalId);
-    // const newMovie = new Movies({
-    //   ...movie,
-    //   createdBy: { userToken: req.cookies.authcookie},
-    // });
-    // const savedMovie = await newMovie.save();
-    // const id = savedMovie._id;
-    // console.log(`Id of cuurent movie is ${id}`);
+    const savedMovie = await newMovie.save();
+    const id = savedMovie._id;
+    console.log(`Id of cuurent movie is ${id}`);
 
    
-    // await Users.findOneAndUpdate(
-    //   { username: username },
-    //   { $push: { movies: id } },
-    //   { new: true }
-    // );
-    // res.status(201).json({
-    //   movie: savedMovie,
-    // });
+    await Users.findOneAndUpdate(
+      { username: username },
+      { $push: { movies: id } },
+      { new: true }
+    );
+    res.status(201).json({
+      movie: savedMovie,
+    });
   } catch (error) {
     res.status(400).json({
       error: `Error creating movie: ${error.message}`,
@@ -71,4 +67,4 @@ const deleteMovies = async (req, res) => {
 };
 
 export { createMovie, getAllMovies, deleteMovies };
-export default originalId
+// export default originalId

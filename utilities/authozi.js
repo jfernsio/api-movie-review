@@ -1,21 +1,37 @@
-const roles = ['user','ADMIN']
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
+const secretKey = process.env.jwtPass;
 
-import originalId from '../controllers/movies.js'
-console.log(originalId)
 const restrictTo = (roles) => {
-    return function (req,res,next) {
-        if(!originalId.role) {
-            return res.status(200).json({
-                msg:"Unauthuorized"
-            })
-        }
-        if(!originalId.includes(req.roles.user)) {
-            return res.status(404).json({
-                msg:"user is not have right to acces"
-            })
-        }
-        next()
+  return (req, res, next) => {
+    const token = req.cookies.authcookie;
+    let user = null;
+    if (!token)
+      return res
+        .status(401)
+        .send({ message: "Access denied. No token provided." });
+    try {
+      const decoded = jwt.verify(token, secretKey);
+      user = decoded;
+      console.log("decoded : ", decoded);
+    } catch (error) {
+      res.status(400).send({ message: "Invalid token" });
     }
-}
+    console.log(user.user.role);
 
-export default restrictTo
+    if (!user.user || !user.user.role) {
+      return res
+        .status(401)
+        .send({ message: "Access denied. No role provided." });
+    }
+    if (!roles.includes(user.user.role)) {
+      return res
+        .status(401)
+        .send({ message: "Access denied. User is not authorized." });
+    }
+    next();
+  };
+};
+
+export { restrictTo };

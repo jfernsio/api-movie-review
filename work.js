@@ -8,6 +8,7 @@ import global_router from './routes/global.js';
 import cookieParser from 'cookie-parser'
 import bodyParser from "body-parser";
 import movie_router from './routes/movie.js';
+import likes_router from './routes/likes.js';
 
 dotenv.config();
 const app = express();
@@ -46,6 +47,7 @@ const updateUser  = async(id, updatedData) => {
 app.use('/users',router)
 app.use('/movies',global_router)
 app.use('/user',movie_router)
+app.use('/user',likes_router)
 
 app.listen(PORT,'0.0.0.0', () => {
   console.log(`Server Started at : ${PORT}`);

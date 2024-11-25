@@ -68,14 +68,16 @@ const unlikeMovie = async (req,res) =>{
       return res.status(404).json({ message: "Movie not found" });
     }
 
-    // if (!user) {
-    //   return res.status(404).json({ message: "User not found" });
-    // }
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
-    // if (!user.likes.includes(movie._id)) {
-    //   return res.status(400).json({ message: "Movie is not liked by user" });
-    // }
-    const delet = await Likes.findByIdAndDelete(movie._id)
+    if (!user.likes.includes(movie._id)) {
+      return res.status(400).json({ message: "Movie is not liked by user" });
+    }
+    const delet = await Likes.deleteMany({})
+    res.status(200).json({ msg: `Deleted ${delet.deletedCount} likes ` });
+
     await Users.findByIdAndUpdate(user._id, { $pull: { likes: movie._id } });
     await Movies.findByIdAndUpdate(movie._id, { $inc: { likes: -1 } });
     res.status(200).json({

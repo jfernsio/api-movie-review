@@ -1,3 +1,4 @@
+
 import express from "express";
 import mongoose from "mongoose";
 import User from "../models/usersModel.js";
@@ -7,7 +8,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
-const signIn = async (req, res) => {
+const signUp = async (req, res) => {
   try {
     const { username, password } = req.body;
 
@@ -103,4 +104,4 @@ const getMovie = async (req, res) => {
   }
 };
 
-export { signIn, logIn, deleteUsers, getMovie };
+export { signUp,logIn, deleteUsers, getMovie };

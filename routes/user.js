@@ -1,17 +1,14 @@
-import express from 'express'
-import  { signIn, logIn , deleteUsers, getMovie} from '../controllers/users.js'
-const app = express()
-const router = express.Router()
+import express from "express";
+import { signUp, logIn, deleteUsers, getMovie } from "../controllers/users.js";
 
-
-app.use('/users',router)
+const router = express.Router();
 
 //user auth routes
 
-router.post('/signup',signIn) //working
-router.post('/login',logIn)     //working
-router.get('/getMovie/:id',getMovie) //working
+router.post("/signin", signUp); //working
+router.post("/login", logIn); //working
+router.get("/getMovie/:id", getMovie); //working
 
 //delette all documents
-router.delete('/delete',deleteUsers)
-export default router
+router.delete("/delete", deleteUsers);
+export default router;

@@ -14,17 +14,17 @@ app.use("user", likes_router);
 likes_router.get(
   "/likes",
   _authCookieToken,
-  restrictTo(["user", "ADMIN"]),
+  restrictTo(["user","ADMIN"]),
   getLikedMovies
 );
 likes_router.post(
-  "/movies/:id/likes",
+  "/movies/likes/:id",
   _authCookieToken,
   restrictTo(["user", "ADMIN"]),
   _like_aMovie
 );
 likes_router.delete(
-  "/movies/:id/likes",
+  "/delete",
   _authCookieToken,
   restrictTo(["user", "ADMIN"]),
   unlikeMovie

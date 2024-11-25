@@ -1,0 +1,97 @@
+:root {
+    --primary-color: #6a11cb;
+    --secondary-color: #2575fc;
+    --background-dark: #121212;
+    --card-dark: #1e1e1e;
+    --text-light: #ffffff;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--text-light);
+}
+
+.container {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px; /* Adjusted padding */
+}
+
+.card {
+    background: var(--card-dark);
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    padding: 20px; /* Reduced padding for better spacing */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+h1 {
+    text-align: center;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 15px; /* Reduced margin */
+    font-weight: 700;
+}
+
+.form-group {
+    margin-bottom: 15px; /* Adjusted margin */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px; /* Adjusted margin */
+    color: rgba(255,255,255,0.7);
+    font-weight: 500;
+}
+
+input, textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--text-light);
+    padding: 10px; /* Adjusted padding */
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+input:focus, 
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(106,17,203,0.2);
+}
+
+button {
+    width: 100%;
+    padding: 12px; /* Adjusted padding */
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 14px rgba(0,0,0,0.25);
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px; /* Adjusted for smaller screens */
+    }
+    
+    .card {
+        padding: 15px; /* Reduced padding for smaller screens */
+    }
+}
